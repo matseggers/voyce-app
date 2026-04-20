@@ -106,7 +106,7 @@ export default function FeedbackPage() {
 
         if (wpmSessions?.length) {
           setWpmHistory(
-            wpmSessions.map((s, i) => ({
+            (wpmSessions as Session[]).map((s, i) => ({
               name: s.created_at === sessionData.created_at ? "Aktuell" : `Session ${i + 1}`,
               wpm: Math.round(s.avg_speaking_speed),
             }))

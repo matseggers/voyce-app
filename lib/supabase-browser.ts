@@ -2,9 +2,11 @@
 
 import { createBrowserClient } from "@supabase/ssr";
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dvhjphopmfbskqkabggw.supabase.co";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+const FALLBACK_URL = "https://dvhjphopmfbskqkabggw.supabase.co";
+const FALLBACK_KEY = "placeholder-anon-key";
 
 export function createSupabaseBrowserClient() {
-  return createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || FALLBACK_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || FALLBACK_KEY;
+  return createBrowserClient(url, key);
 }

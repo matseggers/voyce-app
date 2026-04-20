@@ -78,7 +78,7 @@ export default function DashboardPage() {
       setRecentSessions(sessions.slice(0, 3));
 
       // Overall score = last session score
-      const validScores = sessions.filter((s) => s.overall_score != null);
+      const validScores = (sessions as Session[]).filter((s) => s.overall_score != null);
       if (validScores.length) {
         setOverallScore(validScores[0].overall_score);
         setScoreTrend(validScores.slice(0, 7).reverse().map((s) => s.overall_score));
@@ -86,7 +86,7 @@ export default function DashboardPage() {
 
       // Mode stats
       const stats: ModeStat[] = MODES.map((mode) => {
-        const modeSessions = sessions.filter((s) => s.mode === mode);
+        const modeSessions = (sessions as Session[]).filter((s) => s.mode === mode);
         const last = modeSessions.find((s) => s.overall_score != null);
         return {
           mode,
@@ -104,7 +104,7 @@ export default function DashboardPage() {
       const monday = new Date(now);
       monday.setDate(now.getDate() - daysToMonday);
       monday.setHours(0, 0, 0, 0);
-      const weekCount = sessions.filter((s) => new Date(s.created_at) >= monday).length;
+      const weekCount = (sessions as Session[]).filter((s) => new Date(s.created_at) >= monday).length;
       setWeeklyDone(weekCount);
 
       setLoading(false);
